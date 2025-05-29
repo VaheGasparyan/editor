@@ -1,0 +1,21 @@
+{
+  "panels": {
+    "panelsList": {
+      "templates": "Templates",
+      "customize": "Colors",
+      "elements": "Elements",
+      "dividers": "Dividers",
+      "images": "Images",
+      "videos": "Videos",
+      "uploads": "Image",
+      "text": "Text",
+      "graphics": "Graphics",
+      "pixabay": "Pixabay",
+      "sticker": "Sticker",
+      "image": "Image",
+      "colors": "Colors",
+      "layers": "Layers",
+      "clear": "Reset All"
+    }
+  }
+}
