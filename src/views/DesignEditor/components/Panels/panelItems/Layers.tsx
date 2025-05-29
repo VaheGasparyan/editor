@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useEditor, useObjects } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
@@ -16,7 +16,8 @@ export default function () {
   const editor = useEditor()
   const objects = useObjects() as ILayer[]
   const [layerObjects, setLayerObjects] = React.useState<any[]>([])
-  const setIsSidebarOpen = useSetIsSidebarOpen()
+  const setIsSidebarOpen = useSetIsSidebarOpen();
+  const [disabledElementId, setDisabledElementId] = useState(null);
 
   React.useEffect(() => {
     if (objects) {
@@ -39,6 +40,12 @@ export default function () {
       }
     }
   }, [editor, objects]);
+
+  useEffect(() => {
+    if(layerObjects.length && layerObjects[0].lockMovementX && layerObjects[0].lockMovementY && layerObjects[0].locked) {
+      setDisabledElementId(layerObjects[0].id)
+    };
+  }, [layerObjects])
 
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
@@ -80,10 +87,15 @@ export default function () {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
-                    onClick={() => editor.objects.unlock(object.id)}
+                    onClick={() => {
+                      if(disabledElementId !== object.id) {
+                        editor.objects.unlock(object.id)
+                      }
+                    }}
                     overrides={{
                       Root: {
                         style: {
+                          color: disabledElementId === object.id ? 'gray' : '',
                           paddingLeft: "4px",
                           paddingRight: "4px",
                         },
@@ -100,6 +112,7 @@ export default function () {
                     overrides={{
                       Root: {
                         style: {
+                          color: disabledElementId === object.id ? 'gray' : '',
                           paddingLeft: "4px",
                           paddingRight: "4px",
                         },
@@ -114,10 +127,15 @@ export default function () {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
-                    onClick={() => editor.objects.update({ visible: false }, object.id)}
+                    onClick={() => {
+                      if(disabledElementId !== object.id) {
+                        editor.objects.update({ visible: false }, object.id)
+                      }
+                    }}
                     overrides={{
                       Root: {
                         style: {
+                          color: disabledElementId === object.id ? 'gray' : '',
                           paddingLeft: "4px",
                           paddingRight: "4px",
                         },
@@ -130,10 +148,15 @@ export default function () {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
-                    onClick={() => editor.objects.update({ visible: true }, object.id)}
+                    onClick={() => {
+                      if(object.id !== disabledElementId) {
+                        editor.objects.update({ visible: true }, object.id)
+                      }
+                    }}
                     overrides={{
                       Root: {
                         style: {
+                          color: disabledElementId === object.id ? 'gray' : '',
                           paddingLeft: "4px",
                           paddingRight: "4px",
                         },
@@ -146,10 +169,15 @@ export default function () {
                 <Button
                   kind={KIND.tertiary}
                   size={SIZE.mini}
-                  onClick={() => editor.objects.remove(object.id)}
+                  onClick={() => {
+                    if(disabledElementId !== object.id) {
+                      editor.objects.remove(object.id)
+                    }
+                  }}
                   overrides={{
                     Root: {
                       style: {
+                        color: disabledElementId === object.id ? 'gray' : '',
                         paddingLeft: "4px",
                         paddingRight: "4px",
                       },
