@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react"
-import { Canvas, useActiveObject, useEditor, useZoomRatio } from "@layerhub-io/react"
+import { Canvas, useActiveObject, useEditor, useObjects, useZoomRatio } from "@layerhub-io/react"
 import Playback from "../Playback"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import InlineToolbar from "~/views/DesignEditor/components/Toolbox/InlineToolbar"
@@ -12,13 +12,20 @@ export default function CanvasComponent() {
   const activeObject = useActiveObject()
   const editor = useEditor()
   const containerRef = useRef<HTMLDivElement>(null)
-  const zoomRatio: number = useZoomRatio()
+  const zoomRatio: number = useZoomRatio();
+  const objects = useObjects();
 
   // State for panning
   const [isPanning, setIsPanning] = useState(false)
   const [lastPosX, setLastPosX] = useState(0)
   const [lastPosY, setLastPosY] = useState(0)
-  const [spacebarPressed, setSpacebarPressed] = useState(false)
+  const [spacebarPressed, setSpacebarPressed] = useState(false);
+
+  useEffect(() => {
+    if(objects && editor && objects[0]?.id) {
+      editor.objects.lock(objects[0].id)
+    }
+  }, [objects, editor])
 
   // Set initial zoom to 100% when editor is available
   useEffect(() => {

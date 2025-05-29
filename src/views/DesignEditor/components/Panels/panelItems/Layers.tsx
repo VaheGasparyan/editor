@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useEditor, useObjects } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
@@ -38,7 +38,7 @@ export default function () {
         editor.off("history:changed", watcher)
       }
     }
-  }, [editor, objects])
+  }, [editor, objects]);
 
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>

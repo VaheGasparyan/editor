@@ -69,7 +69,6 @@ export default function ZoomControls() {
     // Convert ratio back to percentage for display
     // Ensure we never show negative or invalid zoom values
     const percentage = Math.max(zoomMin, Math.round(Math.max(0, zoomRatio) * 100));
-    console.log(percentage)
     setOptions({ ...options, zoomRatio: percentage })
 
     // If zoom ratio is invalid or too low, reset to 100%

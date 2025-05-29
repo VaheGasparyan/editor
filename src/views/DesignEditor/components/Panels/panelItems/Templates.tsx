@@ -27,7 +27,7 @@ const BASE_URL = "https://invalbum.com"
 export default function TemplatesPanel() {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const { setScenes, setCurrentScene, setCurrentDesign } = useDesignEditorContext()
+  const { setScenes, setCurrentScene, setCurrentDesign, scenes } = useDesignEditorContext()
   const [templates, setTemplates] = useState<TemplateItem[]>([])
   const [css] = useStyletron()
   // Fetch template previews from CI3

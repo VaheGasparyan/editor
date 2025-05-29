@@ -17,8 +17,6 @@ export default function () {
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("");
 
-  console.log('currentScene ', currentScene)
-
   React.useEffect(() => {
     if (editor && scenes && currentScene) {
       const isCurrentSceneLoaded = scenes.find((s) => s.id === currentScene?.id)
@@ -42,7 +40,7 @@ export default function () {
         editor.off("history:changed", watcher)
       }
     }
-  }, [editor])
+  }, [editor]);
 
   React.useEffect(() => {
     if (editor) {

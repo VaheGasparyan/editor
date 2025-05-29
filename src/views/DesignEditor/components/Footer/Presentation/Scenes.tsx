@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { styled, useStyletron } from "baseui"
 import { Theme } from "baseui/theme"
 import Add from "~/components/Icons/Add"
@@ -29,7 +29,7 @@ export default function () {
         setCurrentScene(scenes[0])
       }
     }
-  }, [editor, scenes, currentScene])
+  }, [editor, scenes, currentScene]);
 
   React.useEffect(() => {
     let watcher = async () => {
